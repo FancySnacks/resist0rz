@@ -1,7 +1,8 @@
 from .ColorCalculator import ColorBandCalculator
 from .const import Color
 
-if __name__ == '__main__':
+
+def main():
     calculator = ColorBandCalculator()
 
     calculator.add_color(Color.ORANGE)
@@ -13,3 +14,7 @@ if __name__ == '__main__':
     total_resistance = calculator.apply_multiplier(base_resistance)
 
     print(total_resistance)
+
+
+if __name__ == '__main__':
+    main()
