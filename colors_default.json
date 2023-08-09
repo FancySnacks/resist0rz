@@ -1,0 +1,77 @@
+{
+  "colors":
+  [
+    {
+      "NAME": "BLACK",
+      "VALUE": 0,
+      "MULTIPLIER": 1,
+      "TOLERANCE": "None"
+    },
+    {
+      "NAME": "BROWN",
+      "VALUE": 1,
+      "MULTIPLIER": 10.0,
+      "TOLERANCE": 0.01
+    },
+    {
+      "NAME": "RED",
+      "VALUE": 2,
+      "MULTIPLIER": 100.0,
+      "TOLERANCE": 0.02
+    },
+    {
+      "NAME": "ORANGE",
+      "VALUE": 3,
+      "MULTIPLIER": 1000.0,
+      "TOLERANCE": "None"
+    },
+    {
+      "NAME": "YELLOW",
+      "VALUE": 4,
+      "MULTIPLIER": 10000.0,
+      "TOLERANCE": "None"
+    },
+    {
+      "NAME": "GREEN",
+      "VALUE": 5,
+      "MULTIPLIER": 100000.0,
+      "TOLERANCE": 0.005
+    },
+    {
+      "NAME": "BLUE",
+      "VALUE": 6,
+      "MULTIPLIER": 1000000.0,
+      "TOLERANCE": 0.0025
+    },
+    {
+      "NAME": "VIOLET",
+      "VALUE": 7,
+      "MULTIPLIER": 10000000.0,
+      "TOLERANCE": 0.0010
+    },
+    {
+      "NAME": "GREY",
+      "VALUE": 8,
+      "MULTIPLIER": 10000000.0,
+      "TOLERANCE": 0.0005
+    },
+    {
+      "NAME": "WHITE",
+      "VALUE": 9,
+      "MULTIPLIER": 10000000.0,
+      "TOLERANCE": "None"
+    },
+    {
+      "NAME": "GOLD",
+      "VALUE": "None",
+      "MULTIPLIER": 0.1,
+      "TOLERANCE": 0.05
+    },
+    {
+      "NAME": "SILVER",
+      "VALUE": "None",
+      "MULTIPLIER": 0.01,
+      "TOLERANCE": 0.1
+    }
+  ]
+}
