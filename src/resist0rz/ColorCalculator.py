@@ -7,8 +7,8 @@ from .const import COLOR_VALUES, Color
 class ColorBandCalculator:
     def __init__(self):
         self.value_colors: list[ColorBand] = []
-        self._multiplier_color: ColorBand | None = ...
-        self.tolerance_color: ColorBand | None = ...
+        self._multiplier_color: ColorBand | None = None
+        self.tolerance_color: ColorBand | None = None
 
     @property
     def multiplier_color(self) -> ColorBand:
@@ -17,11 +17,7 @@ class ColorBandCalculator:
     @multiplier_color.setter
     def multiplier_color(self, color: Color):
         color_data: dict = COLOR_VALUES[color.upper()]
-
-        if color_data['MULTIPLIER'] is not None:
-            self._multiplier_color = ColorBand(**color_data)
-        else:
-            raise ValueError("This color cannot be used as a multiplier")
+        self._multiplier_color = ColorBand(**color_data)
 
     def add_color(self, color: Color):
         color_data: dict = COLOR_VALUES[color.upper()]

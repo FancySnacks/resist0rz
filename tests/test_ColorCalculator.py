@@ -34,3 +34,13 @@ def test_calculate_multiplied_value(colors, multiplier, expected_value):
 
     assert calculator.apply_multiplier(base_value) == expected_value
 
+
+def test_multiplier_not_set_returns_base_value():
+    calculator = ColorBandCalculator()
+    calculator.add_color(Color.BROWN)
+    calculator.add_color(Color.BLACK)
+    calculator.add_color(Color.BLACK)
+
+    base_value = calculator.get_base_resistance_value()
+
+    assert calculator.apply_multiplier(base_value) == 100
