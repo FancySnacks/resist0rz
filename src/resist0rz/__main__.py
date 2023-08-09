@@ -1,5 +1,5 @@
-from .ColorCalculator import ColorBandCalculator
-from .const import Color
+from resist0rz.ColorCalculator import ColorBandCalculator
+from resist0rz.const import Color
 
 
 def main():

@@ -1,7 +1,7 @@
 """Manager class for calculating total resistance on a color-coded single resistor"""
 
-from .ColorBand import ColorBand
-from .const import COLOR_VALUES, Color
+from resist0rz.ColorBand import ColorBand
+from resist0rz.const import COLOR_VALUES, Color
 
 
 class ColorBandCalculator:
