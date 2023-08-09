@@ -1,5 +1,5 @@
-from ColorCalculator import ColorBandCalculator
-from const import Color
+from .ColorCalculator import ColorBandCalculator
+from .const import Color
 
 if __name__ == '__main__':
     calculator = ColorBandCalculator()

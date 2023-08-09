@@ -1,7 +1,7 @@
 """Manager class for calculating total resistance on a color-coded single resistor"""
 
-from ColorBand import ColorBand
-from const import COLOR_VALUES, Color
+from .ColorBand import ColorBand
+from .const import COLOR_VALUES, Color
 
 
 class ColorBandCalculator:
@@ -17,8 +17,11 @@ class ColorBandCalculator:
     @multiplier_color.setter
     def multiplier_color(self, color: Color):
         color_data: dict = COLOR_VALUES[color.upper()]
+
         if color_data['MULTIPLIER'] is not None:
             self._multiplier_color = ColorBand(**color_data)
+        else:
+            raise ValueError("This color cannot be used as a multiplier")
 
     def add_color(self, color: Color):
         color_data: dict = COLOR_VALUES[color.upper()]
