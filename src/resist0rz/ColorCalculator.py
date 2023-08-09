@@ -8,7 +8,7 @@ class ColorBandCalculator:
     def __init__(self):
         self.value_colors: list[ColorBand] = []
         self._multiplier_color: ColorBand | None = None
-        self.tolerance_color: ColorBand | None = None
+        self._tolerance_color: ColorBand | None = None
 
     @property
     def multiplier_color(self) -> ColorBand:
@@ -19,6 +19,19 @@ class ColorBandCalculator:
         color_data: dict = COLOR_VALUES[color.upper()]
         self._multiplier_color = ColorBand(**color_data)
 
+    @property
+    def tolerance_color(self) -> ColorBand:
+        return self._tolerance_color
+
+    @tolerance_color.setter
+    def tolerance_color(self, color: Color):
+        color_data: dict = COLOR_VALUES[color.upper()]
+
+        if color_data['TOLERANCE'] != "None":
+            self._tolerance_color = ColorBand(**color_data)
+        else:
+            raise ValueError("This color has no tolerance value")
+
     def add_color(self, color: Color):
         color_data: dict = COLOR_VALUES[color.upper()]
         color_to_add: ColorBand = ColorBand(**color_data)
@@ -28,7 +41,7 @@ class ColorBandCalculator:
         """Calculate resistance value without applying multiplier or tolerance"""
         total_resistance: list[str] = [str(color.VALUE) for color
                                        in self.value_colors
-                                       if color.VALUE is not None]
+                                       if color.VALUE != "None"]
 
         total_resistance: str = "".join(total_resistance)
         return int(total_resistance)
@@ -40,5 +53,8 @@ class ColorBandCalculator:
 
         return base_value
 
-    def get_tolerance_range(self):
-        pass
+    def get_tolerance_range(self, base_value: int) -> tuple[float, float]:
+        min_resistance = base_value * (1 - self.tolerance_color.TOLERANCE)
+        max_resistance = base_value * (1 + self.tolerance_color.TOLERANCE)
+
+        return min_resistance, max_resistance

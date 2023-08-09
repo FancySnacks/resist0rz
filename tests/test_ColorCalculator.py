@@ -44,3 +44,29 @@ def test_multiplier_not_set_returns_base_value():
     base_value = calculator.get_base_resistance_value()
 
     assert calculator.apply_multiplier(base_value) == 100
+
+
+def test_raises_exception_when_color_has_no_tolerance_value():
+    with pytest.raises(ValueError):
+        calculator = ColorBandCalculator()
+        calculator.tolerance_color = Color.BLACK
+
+
+@pytest.mark.parametrize("colors, multiplier, tolerance, expected_value", [
+    ([Color.BROWN, Color.BLACK], Color.BROWN, Color.GOLD, (95.0, 105.0)),
+    ([Color.RED, Color.GREEN], Color.RED, Color.SILVER, (2250.0, 2750.0)),
+])
+def test_tolerance_is_applied(colors, multiplier, tolerance, expected_value):
+    calculator = ColorBandCalculator()
+
+    for color in colors:
+        calculator.add_color(color)
+
+    calculator.multiplier_color = multiplier
+    calculator.tolerance_color = tolerance
+
+    base_value = calculator.get_base_resistance_value()
+    multiplied_value = calculator.apply_multiplier(base_value)
+    tolerance_range = calculator.get_tolerance_range(multiplied_value)
+
+    assert tolerance_range == expected_value
