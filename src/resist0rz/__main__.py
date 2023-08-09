@@ -1,3 +1,5 @@
+"""Entry point for the script"""
+
 from resist0rz.ColorCalculator import ColorBandCalculator
 from resist0rz.const import Color
 
