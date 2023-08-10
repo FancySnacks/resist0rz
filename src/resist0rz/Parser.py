@@ -5,6 +5,26 @@ from typing import Sequence
 
 class ArgParser:
     def __init__(self):
+        """
+            ArgumentParser class for parsing console args.
+
+            usage: resc [args]
+
+            Get the resistance value of any color-coded or SMD resistor
+
+            options:
+              -h, --help            show this help message and exit
+              -t RESISTOR_TYPE, --type RESISTOR_TYPE
+                                    Type of measured resistor.
+                                    Depending on the type specified a different way of calculation is used.
+                                    Options: ['color' (default) | 'smd']
+              -v RESISTOR_VALUE, --value RESISTOR_VALUE
+                                    Value of a given resistor, matching the chosen type.
+                                    'color' - string sequence of full color names (ex. 'brown,black,black').
+                                    Color names have to be separated by commas
+                                    Minimum of 3 colors for value to be calculated. (base + multiplier + tolerance)
+                                    'smd' - string value of a SMD type resistor. The value has to input the way it appears on the resistor's surface
+        """
         self._parser = ArgumentParser(prog="resist0rz",
                                       usage="resc [args]",
                                       description="Get the resistance value of any color-coded or SMD resistor",
