@@ -1,10 +1,16 @@
 """Entry point for the script"""
 
+from typing import Optional, Sequence
+
+from resist0rz.Parser import ArgParser
 from resist0rz.ColorCalculator import ColorBandCalculator
 from resist0rz.const import Color
 
 
-def main():
+def main(argv: Optional[Sequence[str]] = None):
+    parser = ArgParser()
+    parsed_args: dict = parser.parse_args(argv)
+
     calculator = ColorBandCalculator()
 
     calculator.add_color(Color.ORANGE)
