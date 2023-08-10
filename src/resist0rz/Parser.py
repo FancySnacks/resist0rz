@@ -39,4 +39,19 @@ class ArgParser:
                                        "\n"
                                        "'smd' - string value of a SMD type resistor. The value has to inputted the way "
                                        "it appears on the resistor's surface",
-                                  type=str)
+                                  type=str,
+                                  required=True)
+
+    def parse_colors(self, color_str: str) -> list[str]:
+        color_list: list[str] = color_str.replace(" ", "").split(",")
+
+        if self._minimum_color_count_met(color_list):
+            return color_list
+        else:
+            raise Exception("Requirement of minimum 3 colors has to be met!")
+
+
+    def _minimum_color_count_met(self, colors: list[str]) -> bool:
+        if len(colors) < 3:
+            return False
+        return True

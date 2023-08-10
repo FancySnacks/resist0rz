@@ -2,6 +2,7 @@
 
 from resist0rz.ColorBand import ColorBand
 from resist0rz.const import COLOR_VALUES, Color
+from resist0rz.util import is_a_color_name_name
 
 
 class ColorBandCalculator:
@@ -15,7 +16,10 @@ class ColorBandCalculator:
         return self._multiplier_color
 
     @multiplier_color.setter
-    def multiplier_color(self, color: Color):
+    def multiplier_color(self, color: str):
+        if not is_a_color_name_name(color):
+            raise ValueError(f"{color} is not a valid color name!")
+
         color_data: dict = COLOR_VALUES[color.upper()]
         self._multiplier_color = ColorBand(**color_data)
 
@@ -24,7 +28,10 @@ class ColorBandCalculator:
         return self._tolerance_color
 
     @tolerance_color.setter
-    def tolerance_color(self, color: Color):
+    def tolerance_color(self, color: str):
+        if not is_a_color_name_name(color):
+            raise ValueError(f"{color} is not a valid color name!")
+
         color_data: dict = COLOR_VALUES[color.upper()]
 
         if color_data['TOLERANCE'] != "None":
@@ -32,7 +39,10 @@ class ColorBandCalculator:
         else:
             raise ValueError("This color has no tolerance value")
 
-    def add_color(self, color: Color):
+    def add_color(self, color: str):
+        if not is_a_color_name_name(color):
+            raise ValueError(f"{color} is not a valid color name!")
+
         color_data: dict = COLOR_VALUES[color.upper()]
         color_to_add: ColorBand = ColorBand(**color_data)
         self.value_colors.append(color_to_add)

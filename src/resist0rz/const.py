@@ -22,7 +22,9 @@ def create_color_list(colors: list[dict]) -> dict:
     return {color['NAME']: color for color in colors}
 
 
-COLOR_VALUES: dict = create_color_list(load_color_values())
+COLORS: list[dict] = load_color_values()
+COLOR_NAMES = [color['NAME'] for color in COLORS]
+COLOR_VALUES: dict = create_color_list(COLORS)
 
 
 class Unit(Enum):
