@@ -4,7 +4,7 @@ from typing import Optional, Sequence
 
 from .App import App
 from .Parser import ArgParser
-from .ColorCalculator import ColorBandCalculator, Calculator
+from .Calculator import ColorBandCalculator, Calculator
 
 
 def set_calculator_in_use(calc_type: str) -> Calculator:
