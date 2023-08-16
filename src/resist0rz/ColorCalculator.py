@@ -1,11 +1,31 @@
 """Manager class for calculating total resistance on a color-coded single resistor"""
 
-from resist0rz.ColorBand import ColorBand
-from resist0rz.const import COLOR_VALUES, Color
-from resist0rz.util import is_a_color_name
+from abc import ABC, abstractmethod
+
+from .ColorBand import ColorBand
+from .const import COLOR_VALUES
+from .util import is_a_color_name
 
 
-class ColorBandCalculator:
+class Calculator(ABC):
+    @abstractmethod
+    def add_value(self, value):
+        pass
+    
+    @abstractmethod
+    def get_base_resistance_value(self) -> int:
+        pass
+    
+    @abstractmethod
+    def apply_multiplier(self, base_value: int) -> int:
+        pass
+
+    @abstractmethod
+    def get_resistance_values(self):
+        pass
+
+
+class ColorBandCalculator(Calculator):
     def __init__(self):
         self.value_colors: list[ColorBand] = []
         self._multiplier_color: ColorBand | None = None
