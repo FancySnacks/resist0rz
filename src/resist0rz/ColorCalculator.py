@@ -59,7 +59,15 @@ class ColorBandCalculator(Calculator):
         else:
             raise ValueError("This color has no tolerance value")
 
-    def add_color(self, color: str):
+    def _add_tolerance_and_multiplier_from_value_list(self):
+        """If multiplier color/tolerance color is not set, choose one from value_colors property"""
+        if not self.multiplier_color:
+            self.multiplier_color = str(self.value_colors.pop(-2))
+
+        if not self.tolerance_color:
+            self.tolerance_color = str(self.value_colors.pop(-1))
+
+    def add_value(self, color: str):
         if not is_a_color_name(color):
             raise ValueError(f"{color} is not a valid color name!")
 
@@ -88,3 +96,18 @@ class ColorBandCalculator(Calculator):
         max_resistance = base_value * (1 + self.tolerance_color.TOLERANCE)
 
         return min_resistance, max_resistance
+
+    def get_resistance_values(self) -> dict[str: int|float]:
+        """Calculate base, multiplied base and tolerance range and map values into a dictionary"""
+
+        self._add_tolerance_and_multiplier_from_value_list()
+
+        base = self.get_base_resistance_value()
+        multiplied_base = self.apply_multiplier(base)
+        tolerance_range = self.get_tolerance_range(multiplied_base)
+
+        result = {"base": base,
+                  "multiplied": multiplied_base,
+                  "tolerance_range": tolerance_range}
+
+        return result
