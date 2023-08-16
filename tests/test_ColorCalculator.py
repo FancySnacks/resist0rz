@@ -1,6 +1,6 @@
 import pytest
 
-from resist0rz.ColorCalculator import ColorBandCalculator
+from resist0rz.Calculator import ColorBandCalculator
 from resist0rz.const import Color
 
 
