@@ -1,10 +1,9 @@
 from argparse import ArgumentParser, RawTextHelpFormatter
-
 from typing import Sequence
 
 
 class ArgParser:
-    def __init__(self):
+    def __init__(self, args: Sequence[str]):
         """
             ArgumentParser class for parsing console args.
 
@@ -34,8 +33,8 @@ class ArgParser:
 
         self._setup()
 
-    def parse_args(self, args: Sequence[str]) -> dict:
-        self.args = vars(self._parser.parse_args(args))
+    def parse_args(self) -> dict:
+        self.args = vars(self._parser.parse_args())
         return self.args
 
     def _setup(self):
