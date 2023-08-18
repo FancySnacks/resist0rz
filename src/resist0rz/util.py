@@ -7,12 +7,14 @@ def is_a_color_name(color_name: str) -> bool:
     return color_name.upper() in COLOR_NAMES
 
 
+def split_colors(color_str: str) -> list[str]:
+    return color_str.replace(" ", "").split(",")
+
+
 def parse_colors(color_str: str) -> list[str]:
     """Parse a string of comma separated color names into a list of strings"""
-    color_list: list[str] = color_str.replace(" ", "").split(",")
-
-    if is_valid_resistance_value(color_list):
-        return color_list
+    if is_valid_resistance_value(color_str):
+        return split_colors(color_str)
 
 
 def parse_raw_value(value: str) -> list[str]:
