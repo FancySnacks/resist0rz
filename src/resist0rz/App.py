@@ -22,7 +22,16 @@ class App:
 
         return values
 
-    def print_resistance_value(self, resistor_value, resistance: int, resistance_range: tuple[float, float]):
-        print(f"VALUE: {resistor_value}")
-        print(f"RESISTANCE: {resistance} Ohm")
-        print(f"RANGE: {int(resistance_range[0])} Ohm - {int(resistance_range[1])} Ohm")
+    def print_resistance_value(self, values: dict):
+        for v in values.items():
+            buffer = f"{v[0].upper()}: {v[1][0]}"
+            try:
+                buffer += " Ohm" if v[1][1] is True else ""
+            except IndexError as e:
+                pass
+
+            print(buffer)
+
+        # print(f"VALUE: {resistor_value}")
+        # print(f"RESISTANCE: {resistance} Ohm")
+        # print(f"RANGE: {int(resistance_range[0])} Ohm - {int(resistance_range[1])} Ohm")

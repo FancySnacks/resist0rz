@@ -67,7 +67,7 @@ class ArgParser:
         if self._minimum_color_count_met(color_list):
             return color_list
         else:
-            raise Exception("Requirement of minimum 3 colors has to be met!")
+            raise Exception("Resistor value has to have a minimum length of 3!")
 
 
     def _minimum_color_count_met(self, colors: list[str]) -> bool:

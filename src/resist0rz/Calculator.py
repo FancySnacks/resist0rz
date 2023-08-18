@@ -115,9 +115,9 @@ class ColorBandCalculator(Calculator):
         tolerance_range = self.get_tolerance_range(multiplied_base)
 
         result = {
-            "values": self._values_original,
-            "multiplied": multiplied_base,
-            "tolerance_range": tolerance_range}
+            "values": (self._values_original, False),
+            "resistance": (multiplied_base, True),
+            "tolerance_range": (f"{tolerance_range[0]} - {tolerance_range[1]}", True)}
 
         return result
 
@@ -128,13 +128,23 @@ class SMDCalculator(Calculator):
 
     def add_value(self, value: str):
         self.values.append(value)
-        pass
 
-    def get_base_resistance_value(self) -> int:
-        pass
+    def get_base_resistance_value(self) -> float:
+        result = ""
+
+        for v in self.values:
+            if v.lower() == "r":
+                result += "."
+            else:
+                result += v
+
+        return float(result)
 
     def apply_multiplier(self, base_value: int) -> int:
         pass
 
-    def get_resistance_values(self):
-        pass
+    def get_resistance_values(self) -> dict:
+        return {
+            "value": ("".join(self.values), False),
+            "resistance": (self.get_base_resistance_value(), True)
+            }
