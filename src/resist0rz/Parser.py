@@ -1,6 +1,8 @@
 from argparse import ArgumentParser, RawTextHelpFormatter
 from typing import Sequence
 
+from .util import is_valid_resistance_value, parse_raw_value, parse_colors
+
 
 class ArgParser:
     def __init__(self, args: Sequence[str]):
@@ -61,16 +63,8 @@ class ArgParser:
                                   type=str,
                                   required=True)
 
-    def parse_colors(self, color_str: str) -> list[str]:
-        color_list: list[str] = color_str.replace(" ", "").split(",")
-
-        if self._minimum_color_count_met(color_list):
-            return color_list
+    def parse_resistor_value(self, value: str) -> list[str]:
+        if self.args['type'] == 'color':
+            return parse_colors(value)
         else:
-            raise Exception("Resistor value has to have a minimum length of 3!")
-
-
-    def _minimum_color_count_met(self, colors: list[str]) -> bool:
-        if len(colors) < 3:
-            return False
-        return True
+            return parse_raw_value(value)

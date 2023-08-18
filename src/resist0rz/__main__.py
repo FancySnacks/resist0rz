@@ -22,10 +22,7 @@ def main(argv: Optional[Sequence[str]] = None):
     calculator = set_calculator_in_use(calculator_type)
     app = App(calculator)
 
-    if calculator_type == 'color':
-        resistor_value: list[str] = parser.parse_colors(parsed_args['value'])
-    else:
-        resistor_value: str = parsed_args['value']
+    resistor_value = parser.parse_resistor_value(parsed_args['value'])
 
     result: dict = app.calculate_resistance(resistor_value)
     app.print_resistance_value(result)

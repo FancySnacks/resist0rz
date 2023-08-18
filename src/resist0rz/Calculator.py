@@ -132,6 +132,7 @@ class SMDCalculator(Calculator):
     def get_base_resistance_value(self) -> float:
         result = ""
 
+        print(self.values)
         for v in self.values:
             if v.lower() == "r":
                 result += "."
@@ -140,7 +141,7 @@ class SMDCalculator(Calculator):
 
         return float(result)
 
-    def apply_multiplier(self, base_value: int) -> int:
+    def apply_multiplier(self, base_value: float) -> int:
         pass
 
     def get_resistance_values(self) -> dict:
