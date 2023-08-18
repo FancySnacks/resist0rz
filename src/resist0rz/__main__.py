@@ -14,7 +14,7 @@ def set_calculator_in_use(calc_type: str) -> Calculator:
         case default: raise Exception("Invalid resistor type")
 
 
-def main(argv: Optional[Sequence[str]] = None):
+def main(argv: Optional[Sequence[str]] = None) -> int:
     parser = ArgParser(argv)
     parsed_args: dict = parser.parse_args()
 
@@ -27,6 +27,8 @@ def main(argv: Optional[Sequence[str]] = None):
     result: dict = app.calculate_resistance(resistor_value)
     app.print_resistance_value(result)
 
+    return 0
+
 
 if __name__ == '__main__':
-    main()
+    raise SystemExit(main())
