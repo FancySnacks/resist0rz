@@ -31,7 +31,7 @@ def parse_raw_value(value: str) -> list[str]:
 def is_valid_resistance_value(value: list[str] | str) -> bool:
     """Check if passed list of color bands / SMD value list has minimum length of 3 values"""
     if len(value) < 3:
-        raise Exception("Resistor value has to have a minimum length of 3!")
+        raise ValueError("Resistor value has to have a minimum length of 3!")
     return True
 
 
