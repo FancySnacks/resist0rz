@@ -4,7 +4,7 @@ from abc import ABC, abstractmethod
 
 from .ColorBand import ColorBand
 from .const import COLOR_VALUES
-from .util import is_a_color_name
+from .util import is_a_color_name, is_smd_decimal_value
 
 
 class Calculator(ABC):
@@ -17,11 +17,6 @@ class Calculator(ABC):
     @abstractmethod
     def get_base_resistance_value(self) -> int:
         """Get base resistance value of resistor, without multiplying"""
-        pass
-    
-    @abstractmethod
-    def apply_multiplier(self, base_value: int) -> int:
-        """Return resistor's resistance value (base * multiplier symbol/color)"""
         pass
 
     @abstractmethod
@@ -92,7 +87,7 @@ class ColorBandCalculator(Calculator):
         total_resistance: str = "".join(total_resistance)
         return int(total_resistance)
 
-    def apply_multiplier(self, base_value: int) -> int:
+    def get_multiplied_resistance_value(self, base_value: int) -> int:
         """Apply multiplier to already calculated base resistance value"""
         if self.multiplier_color:
             return int(base_value * self.multiplier_color.MULTIPLIER)
@@ -111,7 +106,7 @@ class ColorBandCalculator(Calculator):
         self._add_tolerance_and_multiplier_from_value_list()
 
         base = self.get_base_resistance_value()
-        multiplied_base = self.apply_multiplier(base)
+        multiplied_base = self.get_multiplied_resistance_value(base)
         tolerance_range = self.get_tolerance_range(multiplied_base)
 
         result = {
@@ -130,9 +125,14 @@ class SMDCalculator(Calculator):
         self.values.append(value)
 
     def get_base_resistance_value(self) -> float:
+        if is_smd_decimal_value("".join(self.values)):
+            return self._get_decimal_resistance_value()
+        else:
+            return self._get_multiplied_resistance_value()
+
+    def _get_decimal_resistance_value(self) -> float:
         result = ""
 
-        print(self.values)
         for v in self.values:
             if v.lower() == "r":
                 result += "."
@@ -141,11 +141,17 @@ class SMDCalculator(Calculator):
 
         return float(result)
 
-    def apply_multiplier(self, base_value: float) -> int:
-        pass
+    def _get_multiplied_resistance_value(self) -> int:
+        multiplier = int(self.values[-1])
+        base = int("".join(self.values[:-1:]))
+
+        if multiplier > 0:
+            return int(str(base) + str(multiplier * "0"))
+        else:
+            return int("".join(self.values))
 
     def get_resistance_values(self) -> dict:
         return {
             "value": ("".join(self.values), False),
             "resistance": (self.get_base_resistance_value(), True)
-            }
+        }

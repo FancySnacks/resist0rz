@@ -26,5 +26,10 @@ def is_valid_resistance_value(value: list[str] | str) -> bool:
     return True
 
 
+def is_smd_decimal_value(smd_value: str) -> bool:
+    """Search for 'R' divider in a smd resistor value"""
+    return True if smd_value.lower().find("r") > -1 else False
+
+
 # TODO: Check whether the input value is mismatched, ex. user is trying to pass SMD encoded value while the resistor
 # type specified is of color type (or vice versa)
