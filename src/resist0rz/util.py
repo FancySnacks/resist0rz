@@ -1,3 +1,5 @@
+"""Various utility functions"""
+
 from resist0rz.const import COLOR_NAMES
 
 

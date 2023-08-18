@@ -118,6 +118,7 @@ class ColorBandCalculator(Calculator):
 
 
 class SMDCalculator(Calculator):
+    """Calculates resistance values of SMD-type resistors"""
     def __init__(self):
         self.values: list[str] = []
 

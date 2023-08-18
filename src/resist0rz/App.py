@@ -1,3 +1,5 @@
+"""Main program functionality"""
+
 from __future__ import annotations
 
 from typing import TYPE_CHECKING
@@ -23,6 +25,7 @@ class App:
         return values
 
     def print_resistance_value(self, values: dict):
+        """Print calculation results"""
         for v in values.items():
             buffer = f"{v[0].upper()}: {v[1][0]}"
             try:
@@ -31,7 +34,3 @@ class App:
                 pass
 
             print(buffer)
-
-        # print(f"VALUE: {resistor_value}")
-        # print(f"RESISTANCE: {resistance} Ohm")
-        # print(f"RANGE: {int(resistance_range[0])} Ohm - {int(resistance_range[1])} Ohm")
