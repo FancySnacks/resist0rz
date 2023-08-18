@@ -8,24 +8,30 @@ from .util import is_a_color_name
 
 
 class Calculator(ABC):
+    """Base abstract class for resistance calculation"""
     @abstractmethod
     def add_value(self, value):
+        """Add single symbol or color marked on surface of resistor"""
         pass
     
     @abstractmethod
     def get_base_resistance_value(self) -> int:
+        """Get base resistance value of resistor, without multiplying"""
         pass
     
     @abstractmethod
     def apply_multiplier(self, base_value: int) -> int:
+        """Return resistor's resistance value (base * multiplier symbol/color)"""
         pass
 
     @abstractmethod
-    def get_resistance_values(self):
+    def get_resistance_values(self) -> dict:
+        """Get resistance values of resistor mapped to a dictionary"""
         pass
 
 
 class ColorBandCalculator(Calculator):
+    """Calculate resistance value of a color-coded carbon resistor"""
     def __init__(self):
         self.values: list[ColorBand] = []
         self._values_original: list[ColorBand] = []
@@ -114,3 +120,21 @@ class ColorBandCalculator(Calculator):
             "tolerance_range": tolerance_range}
 
         return result
+
+
+class SMDCalculator(Calculator):
+    def __init__(self):
+        self.values: list[str] = []
+
+    def add_value(self, value: str):
+        self.values.append(value)
+        pass
+
+    def get_base_resistance_value(self) -> int:
+        pass
+
+    def apply_multiplier(self, base_value: int) -> int:
+        pass
+
+    def get_resistance_values(self):
+        pass
