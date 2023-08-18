@@ -1,6 +1,6 @@
 """Various utility functions"""
 
-from resist0rz.const import COLOR_NAMES
+from .const import COLOR_NAMES, InvalidColorName
 
 
 def is_a_color_name(color_name: str) -> bool:
@@ -13,8 +13,13 @@ def split_colors(color_str: str) -> list[str]:
 
 def parse_colors(color_str: str) -> list[str]:
     """Parse a string of comma separated color names into a list of strings"""
-    if is_valid_resistance_value(color_str):
-        return split_colors(color_str)
+    colors = split_colors(color_str)
+
+    if not is_a_color_name(colors[0]):
+        raise InvalidColorName(colors[0])
+
+    if is_valid_resistance_value(colors):
+        return colors
 
 
 def parse_raw_value(value: str) -> list[str]:

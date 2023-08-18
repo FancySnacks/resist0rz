@@ -54,3 +54,9 @@ class Color(StrEnum):
     WHITE = auto()
     GOLD = auto()
     SILVER = auto()
+
+
+class InvalidColorName(Exception):
+    def __init__(self, color_name: str, message="is not a valid color name!"):
+        self.message = f"'{color_name}' {message}"
+        super().__init__(self.message)
