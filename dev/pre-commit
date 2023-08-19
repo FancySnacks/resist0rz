@@ -2,14 +2,13 @@
 
 echo "===== Pre-Commit ====="
 
+echo "===== Running pytest ====="
 pytest
 
-if [ $? != 0 ]
+if [ $? -ne 0 ]
 then
     echo "Pre-Commit: Tests failed! Aborting the commit"
     exit 1
-else
-    echo "Tests ran successfully, committing..."
 fi
 
-exit 0
+echo "Tests ran successfully, committing..."
