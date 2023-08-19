@@ -16,6 +16,8 @@ def test_convert_to_smaller_unit(value, unit, expected):
 
 @pytest.mark.parametrize("value, unit, expected", [
     ("330", Unit.KILO, "0.330"),
+    ("33", Unit.KILO, "0.033"),
+    ("3", Unit.KILO, "0.003"),
     ("1", Unit.MEGA, "0.00001"),
     ("55", Unit.GIGA, "0.00000055"),
     ("3", Unit.TERA, "0.00000000003"),

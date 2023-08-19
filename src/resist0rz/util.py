@@ -54,7 +54,8 @@ def convert_unit(unit: Unit, value: str) -> str:
         return value
 
     if unit.value > 0:
-        z_count = max(unit.value - len(value), 1)  # Mumbo jumbo, but hey, as long it works
+        z_count = unit.value - len(value)
+        if unit == unit.KILO: z_count += 1  # Mumbo jumbo, but hey, as long it works
         value = value.zfill(len(value) + z_count)
         value = value.replace("0", "0.", 1)  # Add dot after the first zero for correct display
         return value
