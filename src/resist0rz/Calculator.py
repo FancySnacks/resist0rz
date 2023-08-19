@@ -2,9 +2,9 @@
 
 from abc import ABC, abstractmethod
 
-from .ColorBand import ColorBand
-from .const import COLOR_VALUES, InvalidColorName
-from .util import is_a_color_name, is_smd_decimal_value
+from resist0rz.ColorBand import ColorBand
+from resist0rz.const import COLOR_VALUES, InvalidColorName
+from resist0rz.util import is_a_color_name, is_smd_decimal_value
 
 
 class Calculator(ABC):

@@ -1,6 +1,6 @@
 """Various utility functions"""
 
-from .const import COLOR_NAMES, InvalidColorName
+from resist0rz.const import COLOR_NAMES, InvalidColorName, Unit
 
 
 def is_a_color_name(color_name: str) -> bool:
@@ -42,3 +42,22 @@ def is_smd_decimal_value(smd_value: str) -> bool:
 
 # TODO: Check whether the input value is mismatched, ex. user is trying to pass SMD encoded value while the resistor
 # type specified is of color type (or vice versa)
+
+
+def convert_unit(unit: Unit, value: str) -> str:
+    """
+    Convert resistance value to a different unit.\n
+    The value has to be a resistance value measured in Ohms passed as a string.
+    """
+    if unit.value < 0:
+        value += abs(unit.value) * "0"
+        return value
+
+    if unit.value > 0:
+        z_count = ((unit.value - len(value)) + 1) + 3  # Mumbo jumbo, but as long it works
+        value = value.zfill(z_count)
+        value = value.replace("0", "0.", 1)  # Add dot after the first zero
+
+        return value
+
+    return value

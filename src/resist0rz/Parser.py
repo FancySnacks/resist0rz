@@ -1,7 +1,7 @@
 from argparse import ArgumentParser, RawTextHelpFormatter
 from typing import Sequence
 
-from .util import is_valid_resistance_value, parse_raw_value, parse_colors
+from resist0rz.util import parse_raw_value, parse_colors
 
 
 class ArgParser:

@@ -2,9 +2,11 @@
 
 from typing import Optional, Sequence
 
-from .App import App
-from .Parser import ArgParser
-from .Calculator import ColorBandCalculator, SMDCalculator, Calculator
+from resist0rz.const import Unit
+from resist0rz.util import convert_unit
+from resist0rz.App import App
+from resist0rz.Parser import ArgParser
+from resist0rz.Calculator import ColorBandCalculator, SMDCalculator, Calculator
 
 
 def set_calculator_in_use(calc_type: str) -> Calculator:
