@@ -18,6 +18,18 @@ def test_calculate_base_value(colors, expected_value):
     assert calculator.get_base_resistance_value() == expected_value
 
 
+@pytest.mark.parametrize("base, multiplier, expected_value", [
+    (330, Color.RED, 33000),
+    (100, Color.BLACK, 100),
+    (85, Color.GREEN, 8500000),
+])
+def test_calculate_multiplied_value(base, multiplier, expected_value):
+    calculator = ColorBandCalculator()
+    calculator.multiplier_color = multiplier
+
+    assert calculator.get_multiplied_resistance_value(base) == expected_value
+
+
 @pytest.mark.parametrize("colors, expected_value", [
     ([Color.ORANGE, Color.ORANGE, Color.BLACK, Color.BLACK, Color.GOLD], 330),
     ([Color.BROWN, Color.BLACK, Color.RED, Color.GOLD], 1000),
@@ -62,3 +74,15 @@ def test_raises_exception_when_color_name_is_invalid():
     with pytest.raises(InvalidColorName):
         calculator = ColorBandCalculator()
         calculator.add_value("magenta")
+
+
+def test_raises_exception_when_multiplier_color_name_is_invalid():
+    with pytest.raises(InvalidColorName):
+        calculator = ColorBandCalculator()
+        calculator.multiplier_color = "lime"
+
+
+def test_raises_exception_when_tolerance_color_name_is_invalid():
+    with pytest.raises(InvalidColorName):
+        calculator = ColorBandCalculator()
+        calculator.tolerance_color = "cyan"
