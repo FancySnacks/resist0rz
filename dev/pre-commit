@@ -1,0 +1,10 @@
+echo "===== Pre-Commit ====="
+
+pytest
+
+if [ $? != 0 ]
+then
+    echo "Pre-Commit: Tests failed! Aborting the commit"
+else
+    echo "Tests ran successfully, committing..."
+fi
