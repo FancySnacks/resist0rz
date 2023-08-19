@@ -3,7 +3,7 @@
 from abc import ABC, abstractmethod
 
 from .ColorBand import ColorBand
-from .const import COLOR_VALUES
+from .const import COLOR_VALUES, InvalidColorName
 from .util import is_a_color_name, is_smd_decimal_value
 
 
@@ -40,7 +40,7 @@ class ColorBandCalculator(Calculator):
     @multiplier_color.setter
     def multiplier_color(self, color: str):
         if not is_a_color_name(color):
-            raise ValueError(f"{color} is not a valid color name!")
+            raise InvalidColorName(f"{color} is not a valid color name!")
 
         color_data: dict = COLOR_VALUES[color.upper()]
         self._multiplier_color = ColorBand(**color_data)
@@ -52,7 +52,7 @@ class ColorBandCalculator(Calculator):
     @tolerance_color.setter
     def tolerance_color(self, color: str):
         if not is_a_color_name(color):
-            raise ValueError(f"{color} is not a valid color name!")
+            raise InvalidColorName(f"{color} is not a valid color name!")
 
         color_data: dict = COLOR_VALUES[color.upper()]
 
@@ -71,7 +71,7 @@ class ColorBandCalculator(Calculator):
 
     def add_value(self, color: str):
         if not is_a_color_name(color):
-            raise ValueError(f"{color} is not a valid color name!")
+            raise InvalidColorName(f"{color} is not a valid color name!")
 
         color_data: dict = COLOR_VALUES[color.upper()]
         color_to_add: ColorBand = ColorBand(**color_data)

@@ -57,6 +57,7 @@ class Color(StrEnum):
 
 
 class InvalidColorName(Exception):
+    """Raised when string supplied doesn't match any of existing resistor color bands"""
     def __init__(self, color_name: str, message="is not a valid color name!"):
         self.message = f"'{color_name}' {message}"
         super().__init__(self.message)
