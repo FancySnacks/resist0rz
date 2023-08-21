@@ -10,6 +10,26 @@ DEFAULT_PATH = pathlib.Path(__file__).parent
 COLORS_PATH = DEFAULT_PATH.joinpath(pathlib.Path("./colors_default.json"))
 
 
+COLOR_TABLE = """
+*-----------*-------------*-------------*---------------*---------------*
+|   COLOR   |   Value 1   |   Value 2+  |   Multiplier  |   Tolerance   |
+*-----------*-------------*-------------*---------------*---------------*
+|   BLACK   |      0      |      0      |    x1         |               |
+|   BROWN   |      1      |      1      |    x10        |     +- 1%     |
+|    RED    |      2      |      2      |    x100       |     +- 2%     |
+|   ORANGE  |      3      |      3      |    x1000      |               |
+|   YELLOW  |      4      |      4      |    x10000     |               |
+|   GREEN   |      5      |      5      |    x100000    |    +- 0.5%    |
+|    BLUE   |      6      |      6      |    x1000000   |    +- 0.25%   |
+|   VIOLET  |      7      |      7      |    x10000000  |    +- 0.10%   |
+|    GREY   |      8      |      8      |               |    +- 0.05%   |
+|   WHITE   |      9      |      9      |               |               |
+|    GOLD   |             |             |    x0.1       |    +- 5%      |
+|   SILVER  |             |             |    x0.01      |    +- 10%     |
+*-----------------------------------------------------------------------*
+"""
+
+
 def load_color_values() -> list[dict]:
     """Load possible colors and their values as list of dicts"""
     with open(COLORS_PATH, "r") as f:

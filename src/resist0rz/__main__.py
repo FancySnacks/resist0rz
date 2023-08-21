@@ -2,11 +2,10 @@
 
 from typing import Optional, Sequence
 
-from resist0rz.const import Unit
-from resist0rz.util import convert_unit
 from resist0rz.App import App
 from resist0rz.Parser import ArgParser
 from resist0rz.Calculator import ColorBandCalculator, SMDCalculator, Calculator
+from resist0rz.const import COLOR_TABLE
 
 
 def set_calculator_in_use(calc_type: str) -> Calculator:
@@ -20,19 +19,24 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
     parser = ArgParser(argv)
     parsed_args: dict = parser.parse_args()
 
-    calculator_type: str = parsed_args['type']
-    calculator = set_calculator_in_use(calculator_type)
-    app = App(calculator)
+    if parsed_args['table']:
+        print(COLOR_TABLE)
 
-    resistor_value = parser.parse_resistor_value(parsed_args['value'])
+    if parsed_args['value']:
 
-    result: dict = app.calculate_resistance(resistor_value)
+        calculator_type: str = parsed_args['type']
+        calculator = set_calculator_in_use(calculator_type)
+        app = App(calculator)
 
-    if parsed_args['simple']:
-        r = {key: value[0] for key, value in result.items()}
-        print(r)
-    else:
-        app.print_resistance_value(result)
+        resistor_value = parser.parse_resistor_value(parsed_args['value'])
+
+        result: dict = app.calculate_resistance(resistor_value)
+
+        if parsed_args['simple']:
+            r = {key: value[0] for key, value in result.items()}
+            print(r)
+        else:
+            app.print_resistance_value(result)
 
     return 0
 

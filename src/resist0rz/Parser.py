@@ -61,12 +61,17 @@ class ArgParser:
                                        "'smd' - string value of a SMD type resistor. The value has to inputted the way "
                                        "it appears on the resistor's surface",
                                   type=str,
-                                  required=True)
+                                  required=False)
 
         self._parser.add_argument('-s',
                                   '--simple',
                                   help="Print the results as dictionary instead of a formatted string.",
                                   action="store_true")
+
+        self._parser.add_argument('-c',
+                                  '--table',
+                                  action="store_true",
+                                  help="Print the color table to the console.")
 
     def parse_resistor_value(self, value: str) -> list[str]:
         if self.args['type'] == 'color':
