@@ -63,6 +63,11 @@ class ArgParser:
                                   type=str,
                                   required=True)
 
+        self._parser.add_argument('-s',
+                                  '--simple',
+                                  help="Print the results as dictionary instead of a formatted string.",
+                                  action="store_true")
+
     def parse_resistor_value(self, value: str) -> list[str]:
         if self.args['type'] == 'color':
             return parse_colors(value)

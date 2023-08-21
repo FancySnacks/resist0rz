@@ -27,7 +27,12 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
     resistor_value = parser.parse_resistor_value(parsed_args['value'])
 
     result: dict = app.calculate_resistance(resistor_value)
-    app.print_resistance_value(result)
+
+    if parsed_args['simple']:
+        r = {key: value[0] for key, value in result.items()}
+        print(r)
+    else:
+        app.print_resistance_value(result)
 
     return 0
 
