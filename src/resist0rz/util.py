@@ -45,6 +45,8 @@ def convert_unit(unit: Unit, value: str) -> str:
     Convert resistance value to a different unit.\n
     The value has to be a resistance value measured in Ohms passed as a string.
     """
+    value = value.replace(".", "")
+
     if unit.value < 0:
         value += abs(unit.value) * "0"
         return value
