@@ -7,8 +7,6 @@ from resist0rz.util import parse_raw_value, parse_colors
 class ArgParser:
     def __init__(self, args: Sequence[str]):
         """
-            ArgumentParser class for parsing console args.
-
             usage: resc [args]
 
             Get the resistance value of any color-coded or SMD resistor
@@ -27,9 +25,12 @@ class ArgParser:
                                     'smd' - string value of a SMD type resistor. The value has to inputted the way it appears on the resistor's surface
               -s, --simple          Print the results as dictionary instead of a formatted string.
               -c, --table           Print the color table to the console.
+              -u CONVERSION_UNIT, --unit CONVERSION_UNIT
+                                    Convert the result to a multiply of Ohms (micro, kilo, mega etc.)
+                                    Enter the suffix of the unit you want, ex. enter 'kilo' instead of 'kiloohms' or other.
+                                    example usage: resc -c 'orange,orange,black' -u 'mili' -> returns resisance in miliohms
 
             by FancySnacks @2023
-
         """
         self._parser = ArgumentParser(prog="resist0rz",
                                       usage="resc [args]",
