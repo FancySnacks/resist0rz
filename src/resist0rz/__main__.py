@@ -29,8 +29,9 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
         app = App(calculator)
 
         resistor_value = parser.parse_resistor_value(parsed_args['value'])
+        unit = parsed_args['unit'] or "ohm"
 
-        result: dict = app.calculate_resistance(resistor_value)
+        result: dict = app.calculate_resistance(resistor_value, unit=unit)
 
         if parsed_args['simple']:
             r = {key: value[0] for key, value in result.items()}

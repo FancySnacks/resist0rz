@@ -60,6 +60,9 @@ class Unit(Enum):
     TERA = 12
 
 
+UNITS = ["ohm"] + [e.name.lower() for e in Unit]
+
+
 class Color(StrEnum):
     """One of possible resistor color bands"""
     BLACK = auto()

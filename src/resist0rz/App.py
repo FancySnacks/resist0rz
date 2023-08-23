@@ -5,7 +5,7 @@ from __future__ import annotations
 from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from .Calculator import Calculator
+    from resist0rz.Calculator import Calculator
 
 
 class App:
@@ -17,20 +17,17 @@ class App:
         for item in values:
             self.calculator.add_value(item)
 
-    def calculate_resistance(self, values: list):
+    def calculate_resistance(self, values: list, unit: str = "ohm"):
         """Calculates resistance value and returns a dict containing base, multiplied and tolerance range values"""
         self._add_resistor_values(values)
-        values: dict = self.calculator.get_resistance_values()
+        values: dict = self.calculator.get_resistance_values(unit)
 
         return values
 
     def print_resistance_value(self, values: dict):
         """Print calculation results"""
+
         for v in values.items():
-            buffer = f"{v[0].upper()}: {v[1][0]}"
-            try:
-                buffer += " Ohm" if v[1][1] is True else ""
-            except IndexError as e:
-                pass
+            buffer = f"{v[0].upper()}: {v[1]}"
 
             print(buffer)

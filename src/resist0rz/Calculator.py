@@ -3,8 +3,8 @@
 from abc import ABC, abstractmethod
 
 from resist0rz.ColorBand import ColorBand
-from resist0rz.const import COLOR_VALUES, InvalidColorName
-from resist0rz.util import is_a_color_name, is_smd_decimal_value
+from resist0rz.const import COLOR_VALUES, InvalidColorName, Unit, UNITS
+from resist0rz.util import is_a_color_name, is_smd_decimal_value, convert_unit
 
 
 class Calculator(ABC):
@@ -20,9 +20,15 @@ class Calculator(ABC):
         pass
 
     @abstractmethod
-    def get_resistance_values(self) -> dict:
+    def get_resistance_values(self, unit: str = "ohm") -> dict:
         """Get resistance values of resistor mapped to a dictionary"""
         pass
+
+    def _get_desired_unit_name(self, unit: str) -> str:
+        if unit.lower() in UNITS:
+            return f"{unit}Ohm"
+        else:
+            return "Ohm"
 
 
 class ColorBandCalculator(Calculator):
@@ -100,7 +106,7 @@ class ColorBandCalculator(Calculator):
 
         return min_resistance, max_resistance
 
-    def get_resistance_values(self) -> dict:
+    def get_resistance_values(self, unit: str = "ohm") -> dict:
         """Calculate base, multiplied base and tolerance range and map values into a dictionary"""
 
         self._add_tolerance_and_multiplier_from_value_list()
@@ -109,12 +115,19 @@ class ColorBandCalculator(Calculator):
         multiplied_base = self.get_multiplied_resistance_value(base)
         tolerance_range = self.get_tolerance_range(multiplied_base)
 
+        if unit != "ohm":
+            multiplied_base = convert_unit(unit=Unit[unit.upper()], value=str(multiplied_base))
+
         result = {
-            "values": (self._values_original, False),
-            "resistance": (multiplied_base, True),
-            "tolerance_range": (f"{tolerance_range[0]} - {tolerance_range[1]}", True)}
+            "values": self._values_original,
+            "resistance": multiplied_base + f" {self._get_desired_unit_name(unit)}",
+            "tolerance_range": self._tolerance_range_format(tolerance_range) + f" {self._get_desired_unit_name(unit)}"
+        }
 
         return result
+
+    def _tolerance_range_format(self, tolerance_range: tuple[float, float]) -> str:
+        return f"{tolerance_range[0]} - {tolerance_range[1]}"
 
 
 class SMDCalculator(Calculator):
@@ -151,7 +164,7 @@ class SMDCalculator(Calculator):
         else:
             return int("".join(self.values))
 
-    def get_resistance_values(self) -> dict:
+    def get_resistance_values(self, unit: str = "ohm") -> dict:
         return {
             "value": ("".join(self.values), False),
             "resistance": (self.get_base_resistance_value(), True)

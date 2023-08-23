@@ -40,10 +40,6 @@ def is_smd_decimal_value(smd_value: str) -> bool:
     return True if smd_value.lower().find("r") > -1 else False
 
 
-# TODO: Check whether the input value is mismatched, ex. user is trying to pass SMD encoded value while the resistor
-# type specified is of color type (or vice versa)
-
-
 def convert_unit(unit: Unit, value: str) -> str:
     """
     Convert resistance value to a different unit.\n
