@@ -45,7 +45,9 @@ def convert_unit(unit: Unit, value: str) -> str:
     Convert resistance value to a different unit.\n
     The value has to be a resistance value measured in Ohms passed as a string.
     """
-    value = value.replace(".", "")
+
+    if end := value.find(".") > 0:  # Avoid the issue with decimals converting wrongly because of dot
+        value = value[:-end-1:]
 
     if unit.value < 0:
         value += abs(unit.value) * "0"
@@ -53,7 +55,8 @@ def convert_unit(unit: Unit, value: str) -> str:
 
     if unit.value > 0:
         z_count = unit.value - len(value)
-        if unit == unit.KILO: z_count += 1  # Mumbo jumbo, but hey, as long it works
+        if unit == unit.KILO:
+            z_count += 1  # Mumbo jumbo, but hey, as long it works
         value = value.zfill(len(value) + z_count)
         value = value.replace("0", "0.", 1)  # Add dot after the first zero for correct display
         return value

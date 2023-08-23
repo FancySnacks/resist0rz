@@ -117,6 +117,8 @@ class ColorBandCalculator(Calculator):
 
         if unit != "ohm":
             multiplied_base = convert_unit(unit=Unit[unit.upper()], value=str(multiplied_base))
+            tolerance_range = (convert_unit(unit=Unit[unit.upper()], value=str(tolerance_range[0])),
+                               convert_unit(unit=Unit[unit.upper()], value=str(tolerance_range[1])))
 
         result = {
             "values": self._values_original,
@@ -126,7 +128,7 @@ class ColorBandCalculator(Calculator):
 
         return result
 
-    def _tolerance_range_format(self, tolerance_range: tuple[float, float]) -> str:
+    def _tolerance_range_format(self, tolerance_range: tuple) -> str:
         return f"{tolerance_range[0]} - {tolerance_range[1]}"
 
 
