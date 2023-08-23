@@ -78,6 +78,15 @@ class ArgParser:
                                   action="store_true",
                                   help="Print the color table to the console.")
 
+        self._parser.add_argument('-u',
+                                  '--unit',
+                                  type=str,
+                                  metavar="CONVERSION_UNIT",
+                                  help="Convert the result to a multiply of Ohms (micro, kilo, mega etc.)\n"
+                                       "Enter the suffix of the unit you want, ex. enter 'kilo' instead of 'kiloohms' "
+                                       "or other.\n"
+                                       "example usage: resc -c 'orange,orange,black' -u 'mili' -> returns resisance in miliohms")
+
     def parse_resistor_value(self, value: str) -> list[str]:
         if self.args['type'] == 'color':
             return parse_colors(value)
